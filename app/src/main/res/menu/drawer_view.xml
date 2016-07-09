@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+
+        <item android:id="@+id/nav_crush_fragment"
+            android:icon="@drawable/ic_hearth"
+            android:title="@string/menu_title_crush"
+            android:checked="true"/>
+
+        <item android:id="@+id/nav_music_fragment"
+            android:icon="@drawable/ic_music"
+            android:title="@string/menu_title_music"/>
+
+        <item android:id="@+id/nav_comics_fragment"
+            android:icon="@drawable/ic_comics"
+            android:title="@string/menu_title_comics"/>
+
+        <item android:id="@+id/nav_favourite_fragment"
+            android:icon="@drawable/ic_favourite"
+            android:title="@string/menu_title_favourite"/>
+
+    </group>
+</menu>

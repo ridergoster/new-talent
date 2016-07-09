@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="16dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <ImageView
+            android:id="@+id/iv_music"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:src="@drawable/landscape"
+            android:contentDescription="@string/iv_description"/>
+
+        <TextView
+            android:id="@+id/tv_title_music"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/iv_music"
+            android:textStyle="bold"
+            android:textColor="@color/primary_text"/>
+
+        <TextView
+            android:id="@+id/tv_description_music"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/iv_music"
+            android:maxLines="3"
+            android:ellipsize="end"
+            android:textSize="12sp"
+            android:layout_below="@id/tv_title_music"
+            android:textColor="@color/secondary_text"/>
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>
