@@ -41,8 +41,8 @@ public class VideosViewHolder extends RecyclerView.ViewHolder{
                 ((MainActivity) mContext).startActivity(intent);
             }
         });
-        Picasso.with(mContext).load(video.getImageUrl()).into(ivMusic);
-        tvTitle.setText(video.getName());
+        Picasso.with(mContext).load(video.getImageUrl()).fit().centerCrop().into(ivMusic);
+        tvTitle.setText(video.getTitle());
         tvDescription.setText(video.getDescription());
     }
 }

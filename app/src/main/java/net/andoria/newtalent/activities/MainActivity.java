@@ -1,12 +1,12 @@
 package net.andoria.newtalent.activities;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -22,6 +22,7 @@ import net.andoria.newtalent.fragments.MusicFragment;
 import net.andoria.newtalent.models.SessionData;
 import net.andoria.newtalent.models.Video;
 import net.andoria.newtalent.network.APIService;
+import net.andoria.newtalent.utils.PreferenceHelper;
 
 import java.util.List;
 
@@ -48,20 +49,8 @@ public class MainActivity extends AppCompatActivity {
         setupDrawerContent(this.nvView);
         this.drawerToggle = setupDrawerToggle();
         mDrawer.addDrawerListener(this.drawerToggle);
+        nvView.getMenu().performIdentifierAction(R.id.nav_crush_fragment, 0);
 
-        APIService.getInstance(getBaseContext()).getVideos(new APIService.APIResult<List<Video>>() {
-            @Override
-            public void success(List<Video> res) {
-                SessionData.getInstance().setVideos(res);
-                nvView.getMenu().performIdentifierAction(R.id.nav_crush_fragment, 0);
-            }
-
-            @Override
-            public void error(int code, String message) {
-                Log.d("FAILED : ", message + code);
-
-            }
-        });
     }
 
     @Override
@@ -95,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
     public void selectDrawerItem(MenuItem menuItem) {
         // Create a new fragment and specify the fragment to show based on nav item clicked
         Fragment fragment = null;
-        Class fragmentClass;
+        Class fragmentClass = CrushFragment.class;  // default
         switch(menuItem.getItemId()) {
             case R.id.nav_crush_fragment:
                 fragmentClass = CrushFragment.class;
@@ -109,6 +98,12 @@ public class MainActivity extends AppCompatActivity {
             case R.id.nav_favourite_fragment:
                 fragmentClass = FavouriteFragment.class;
                 break;
+            case R.id.nav_disconnect:
+                SessionData.getInstance().clear(getBaseContext());
+                Intent intent = new Intent(this, AuthentActivity.class);
+                startActivity(intent);
+                finish();
+                return;
             default:
                 fragmentClass = CrushFragment.class;
         }

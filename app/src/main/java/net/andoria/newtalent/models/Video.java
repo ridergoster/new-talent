@@ -15,7 +15,10 @@ public class Video implements Parcelable {
     private String id;
 
     @JsonField
-    private String name;
+    private String idYoutube;
+
+    @JsonField
+    private String title;
 
     @JsonField
     private String description;
@@ -26,16 +29,26 @@ public class Video implements Parcelable {
     @JsonField
     private String videoUrl;
 
+    @JsonField
+    private float rate;
+
+    @JsonField
+    private boolean hasVote;
+
     public Video() {
         //noop
     }
 
+
     protected Video(Parcel in) {
         id = in.readString();
-        name = in.readString();
+        idYoutube = in.readString();
+        title = in.readString();
         description = in.readString();
         imageUrl = in.readString();
         videoUrl = in.readString();
+        rate = in.readFloat();
+        hasVote = in.readByte() != 0;
     }
 
     public static final Creator<Video> CREATOR = new Creator<Video>() {
@@ -58,12 +71,20 @@ public class Video implements Parcelable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getIdYoutube() {
+        return idYoutube;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setIdYoutube(String idYoutube) {
+        this.idYoutube = idYoutube;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getDescription() {
@@ -90,6 +111,23 @@ public class Video implements Parcelable {
         this.videoUrl = videoUrl;
     }
 
+
+    public float getRate() {
+        return rate;
+    }
+
+    public void setRate(float rate) {
+        this.rate = rate;
+    }
+
+    public boolean isHasVote() {
+        return hasVote;
+    }
+
+    public void setHasVote(boolean hasVote) {
+        this.hasVote = hasVote;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -98,9 +136,12 @@ public class Video implements Parcelable {
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(id);
-        parcel.writeString(name);
+        parcel.writeString(idYoutube);
+        parcel.writeString(title);
         parcel.writeString(description);
         parcel.writeString(imageUrl);
         parcel.writeString(videoUrl);
+        parcel.writeFloat(rate);
+        parcel.writeByte((byte) (hasVote ? 1 : 0));
     }
 }

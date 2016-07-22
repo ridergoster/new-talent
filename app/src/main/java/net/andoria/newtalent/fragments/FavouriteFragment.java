@@ -14,6 +14,7 @@ import com.squareup.picasso.Picasso;
 
 import net.andoria.newtalent.R;
 import net.andoria.newtalent.models.SessionData;
+import net.andoria.newtalent.utils.PreferenceHelper;
 import net.andoria.newtalent.views.adapters.VideosAdapter;
 
 import butterknife.BindView;
@@ -36,7 +37,7 @@ public class FavouriteFragment extends Fragment {
     }
 
     private void initView() {
-        VideosAdapter adapter = new VideosAdapter(SessionData.getInstance().getVideos(), getContext());
+        VideosAdapter adapter = new VideosAdapter(PreferenceHelper.getInstance().getFavouriteVideos(), getContext());
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setHasFixedSize(false);
         recyclerView.setNestedScrollingEnabled(true);
