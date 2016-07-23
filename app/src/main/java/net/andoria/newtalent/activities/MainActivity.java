@@ -13,6 +13,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import net.andoria.newtalent.R;
 import net.andoria.newtalent.fragments.ComicFragment;
@@ -50,7 +52,12 @@ public class MainActivity extends AppCompatActivity {
         this.drawerToggle = setupDrawerToggle();
         mDrawer.addDrawerListener(this.drawerToggle);
         nvView.getMenu().performIdentifierAction(R.id.nav_crush_fragment, 0);
-
+        View headerView;
+        if (nvView != null) {
+            headerView = nvView.getHeaderView(0);
+            TextView tvEmail = (TextView) headerView.findViewById(R.id.tv_nav_header);
+            tvEmail.setText(SessionData.getInstance().getCurrentUser().getEmail());
+        }
     }
 
     @Override

@@ -80,6 +80,19 @@
             android:text="@string/auth_bt_subsribe"
             android:textAllCaps="false"
             android:textColor="@android:color/white" />
+
+        <Button
+            android:id="@+id/btn_exit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="50dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/primary"
+            android:text="@string/auth_bt_exit"
+            android:visibility="gone"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white" />
     </LinearLayout>
     <RelativeLayout
         android:id="@+id/pb_authent"

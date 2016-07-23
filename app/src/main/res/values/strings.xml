@@ -3,6 +3,7 @@
 
     <!--authentication activity-->
     <string name="auth_bt_subsribe">S\'inscrire</string>
+    <string name="auth_bt_exit">Annuler</string>
     <string name="auth_bt_login">Se connecter</string>
     <string name="auth_et_email">Email</string>
     <string name="auth_et_password">Password</string>

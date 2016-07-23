@@ -6,8 +6,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
@@ -16,11 +14,8 @@ import android.widget.Toast;
 import net.andoria.newtalent.R;
 import net.andoria.newtalent.models.SessionData;
 import net.andoria.newtalent.models.User;
-import net.andoria.newtalent.models.Video;
 import net.andoria.newtalent.network.APIService;
 import net.andoria.newtalent.utils.PreferenceHelper;
-
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -45,6 +40,8 @@ public class AuthentActivity extends AppCompatActivity {
     TextInputLayout tilPassword;
     @BindView(R.id.pb_authent)
     RelativeLayout pbAuthent;
+    @BindView(R.id.btn_exit)
+    Button btnExit;
 
     private boolean isViewLogin = true;
 
@@ -59,7 +56,7 @@ public class AuthentActivity extends AppCompatActivity {
         etPassword.setText("password");
     }
 
-    @OnClick({R.id.btn_login, R.id.btn_subscribe})
+    @OnClick({R.id.btn_login, R.id.btn_subscribe, R.id.btn_exit})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_login:
@@ -82,10 +79,10 @@ public class AuthentActivity extends AppCompatActivity {
                 }
                 break;
             case R.id.btn_subscribe:
-                if(isViewLogin) {
+                if (isViewLogin) {
                     animBtnTranslate(true);
                 } else {
-                    if(verifFields()) {
+                    if (verifFields()) {
                         pbAuthent.setVisibility(View.VISIBLE);
                         APIService.getInstance(getBaseContext()).subscribe(buildUser(), new APIService.APIResult<User>() {
                             @Override
@@ -104,12 +101,17 @@ public class AuthentActivity extends AppCompatActivity {
 
                 }
                 break;
+            case R.id.btn_exit:
+                animBtnTranslate(false);
+                break;
         }
     }
 
-    private void animBtnTranslate(boolean hide) {
-        if(hide) {
+    private void animBtnTranslate(boolean hideLogin) {
+        if (hideLogin) {
             isViewLogin = false;
+            btnExit.setTranslationX(-750);
+            btnExit.setVisibility(View.VISIBLE);
             btnLogin.animate()
                     .translationXBy(750)
                     .alpha(0f)
@@ -122,6 +124,18 @@ public class AuthentActivity extends AppCompatActivity {
                             etPassword.setText("");
                         }
                     });
+
+            btnExit.animate()
+                    .translationXBy(750)
+                    .alpha(1f)
+                    .setDuration(500).
+                    withEndAction(new Runnable() {
+                        @Override
+                        public void run() {
+//                            btnExit.setVisibility(View.VISIBLE);
+                        }
+                    });
+            ;
         } else {
             isViewLogin = true;
             btnLogin.animate()
@@ -136,6 +150,16 @@ public class AuthentActivity extends AppCompatActivity {
                             etPassword.setText("");
                         }
                     });
+            btnExit.animate()
+                    .alpha(0f)
+                    .translationXBy(-750)
+                    .setDuration(500)
+                    .withEndAction(new Runnable() {
+                        @Override
+                        public void run() {
+                            btnExit.setVisibility(View.GONE);
+                        }
+                    });
         }
     }
 
@@ -146,6 +170,7 @@ public class AuthentActivity extends AppCompatActivity {
         pbAuthent.setVisibility(View.GONE);
         finish();
     }
+
     private User buildUser() {
         User user = new User();
         user.setEmail(etEmail.getText().toString());
