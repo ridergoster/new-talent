@@ -51,9 +51,6 @@ public class AuthentActivity extends AppCompatActivity {
         setContentView(R.layout.activity_authent);
         ButterKnife.bind(this);
         PreferenceHelper.getInstance().initPref(this, null);
-
-        etEmail.setText("delbut.maxime@gmail.com");
-        etPassword.setText("password");
     }
 
     @OnClick({R.id.btn_login, R.id.btn_subscribe, R.id.btn_exit})
